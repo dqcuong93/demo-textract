@@ -31,7 +31,7 @@ def walk(my_object, font, embedded_font):
 
 
 if __name__ == "__main__":
-    fname = "1p.pdf"
+    fname = "1p.pdf"  # Change this to the file name you want
     pdf = PdfFileReader(fname)
     fonts = set()
     embedded = set()
