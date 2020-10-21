@@ -13,7 +13,6 @@ BOUNDING_BOX_WIDTH = 120.61135243177414
 BOUNDING_BOX_HEIGHT = 11.081987231075763
 START_X = 433.0115837574005
 START_Y = 174.90205139636993
-END_Y = 641.73794860363
 
 
 def calculate_fontsize(text, bb_width):
@@ -40,7 +39,7 @@ font_size = calculate_fontsize(text=TEXT, bb_width=BOUNDING_BOX_WIDTH)
 # create a new PDF with Reportlab
 can = canvas.Canvas(filename=overlay_pdf_file_name, pagesize=(578.4, 824.64))
 
-textobject = can.beginText(START_X, END_Y)
+textobject = can.beginText(START_X, START_Y)
 textobject.setFont(FONT_NAME, font_size)
 textobject.textOut(TEXT)
 can.drawText(textobject)
