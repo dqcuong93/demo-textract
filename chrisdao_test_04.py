@@ -1,3 +1,4 @@
+from PyPDF2 import PdfFileReader, PdfFileWriter
 from reportlab.pdfbase import pdfmetrics
 from reportlab.pdfgen import canvas
 
@@ -7,12 +8,12 @@ pdf_template_file_name = "base_PDF_template.pdf"
 result_pdf_file_name = "final_PDF.pdf"
 FONT_NAME = "Courier"
 FONT_SIZE = 17
-TEXT = "Dan"
-BOUNDING_BOX_WIDTH = 137.63074378967283
-BOUNDING_BOX_HEIGHT = 39.03012784838676
-START_X = 49.51413624286651
-START_Y = 29.64576608777046
-END_Y = 717.9942339122296
+TEXT = "Tuesday, August 11, 2020"
+BOUNDING_BOX_WIDTH = 120.61135243177414
+BOUNDING_BOX_HEIGHT = 11.081987231075763
+START_X = 433.0115837574005
+START_Y = 174.90205139636993
+END_Y = 641.73794860363
 
 
 def calculate_fontsize(text, bb_width):
@@ -44,3 +45,21 @@ textobject.setFont(FONT_NAME, font_size)
 textobject.textOut(TEXT)
 can.drawText(textobject)
 can.save()
+
+# Take the PDF you created above and overlay it on your template PDF
+# Open your template PDF
+pdf_template = PdfFileReader(open(pdf_template_file_name, "rb"))
+
+# Get the first page from the template
+template_page = pdf_template.getPage(0)
+
+# Open your overlay PDF that was created earlier
+overlay_pdf = PdfFileReader(open(overlay_pdf_file_name, "rb"))
+
+# Merge the overlay page onto the template page
+template_page.mergePage(overlay_pdf.getPage(0))
+
+# Write the result to a new PDF file
+output_pdf = PdfFileWriter()
+output_pdf.addPage(template_page)
+output_pdf.write(open(result_pdf_file_name, "wb"))
